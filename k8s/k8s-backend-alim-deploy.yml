@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-backend-alim-deployment
+spec:
+  replicas: 3  # 원하는 파드 복제본 수 (기본값: 1)
+  selector:
+    matchLabels:
+      app: k8s-backend-alim  # 템플릿의 labels와 일치해야 함
+  template:
+    metadata:
+      labels:
+        app: k8s-backend-alim  # selector와 일치해야 함
+    spec:
+      containers:
+        - name: k8s-backend-alim
+          image: firendermen/k8s-backend-alim:0.0.1
+          imagePullPolicy: Always
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+          ports:
+            - containerPort: 8080
