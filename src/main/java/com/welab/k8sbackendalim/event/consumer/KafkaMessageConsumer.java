@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class KafkaMessageConsumer {
     @KafkaListener(topics = SiteUserInfoEvent.Topic, properties = {
-            JsonDeserializer.VALUE_DEFAULT_TYPE + ":com.welab.k8s_backend_alim.event.consumer.message.user.SiteUserInfoEvent"
+            JsonDeserializer.VALUE_DEFAULT_TYPE +
+                    ":com.welab.k8sbackendalim.event.consumer.message.user.SiteUserInfoEvent"
     })
     void handleSiteUserInfoEvent(SiteUserInfoEvent event, Acknowledgment ack) {
         log.info("SiteUserInfoEvent 처리. userId={}", event.getUserId());
+
         ack.acknowledge();
     }
 }
